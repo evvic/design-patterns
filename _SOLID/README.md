@@ -1,5 +1,5 @@
 # SOLID Design Principles
-- 5 of the most common programming design principles
+- Acronym for the **5 most common programming design principles**
 
 ## **S**ingle Responsibility Principle
 - A class should have a primary responsibility and should not take up other responsibilites
@@ -53,6 +53,24 @@ struct IMachine: IPrinter, IScanner {};
 - Here the Machine interface (`IMachine`) takes both printer and scanner inerfaces
   - A machine inheriting from IMachine will now have the print and scan ability
   - After overriding the virtual methods from `IPrinter` and `IScanner`
+
+
+## **D**ependency Inversion Principle
+- Best way to form dependencies between different objects
+- Changing the details of the dependency should not break the high-level module
+- Abstractions = interfaces or base classes
+
+
+2 Principles:
+1. High-level modules should not depend on low-level modules
+    - Both should depend on abstractions
+2. Abstractions should not depend on the details
+    - Details should depend on the abstractions
+
+### Example [`5-dip.cpp`](5-dip.cpp)
+- The low-vel module `Relationships` is used by the high-level module `Research`
+- Directly including `Relationships` into `Research` makes `Research` vulnerable to any changes in `Relationships`
+- It is better to create some "API" that abstracts the dependencies and keeps any changes all within `Relationships`
 
 # Setup
 - Install the boost library
