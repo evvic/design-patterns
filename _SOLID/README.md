@@ -17,16 +17,21 @@
 ## **O**pen-Closed Principle
 - The system should be **open** to extension (i.e. by inheritance) but **closed** from modificaton
 - Bad practice is to have to modify existing code versus inheriting and extending the system
+- The core interfaces would never need to be modified (closed), new features can be implemented as classes that inherit from these core interfaces
 
 ### Example [`2-ocp.cpp`](2-ocp.cpp)
 - To filter the vector of `Products` creating a function to filter by color or size is repetitive
   - Plus the function would have to be replicated continuously for every additional filter added
   - And what if they want to combine filters
     - ...now there can be many different combinations for filter functions
-
+- Create a virtual `Specification` class that is used to be inherited by
+  - Contains the virtual method (for comparing the specific feature) that needs to be overrided
+- Create a virtual `Filter` class that is meant to be inherited
+  - Contains the virtual method for filtering a vector by a Specification and returning the filtered vector
 
 
 ## **L**iskov Substitution Principle
+- Subtypes should be immediately substitutable for their base types
 
 # Setup
 - Install the boost library
