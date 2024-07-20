@@ -16,6 +16,15 @@
 
 ## **O**pen-Closed Principle
 - The system should be **open** to extension (i.e. by inheritance) but **closed** from modificaton
+- Bad practice is to have to modify existing code versus inheriting and extending the system
+
+### Example [`2-ocp.cpp`](2-ocp.cpp)
+- To filter the vector of `Products` creating a function to filter by color or size is repetitive
+  - Plus the function would have to be replicated continuously for every additional filter added
+  - And what if they want to combine filters
+    - ...now there can be many different combinations for filter functions
+
+
 
 ## **L**iskov Substitution Principle
 
