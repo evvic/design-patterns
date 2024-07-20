@@ -7,7 +7,7 @@
   - Separate things that change for different reasons
 - The class is more robust when it is focused on a single concern
 
-### Example `1-srp.cpp`
+### Example [`1-srp.cpp`](1-srp.cpp)
 - The `Journal` class has one responsibility and that is to allow writing entries
 - Adding a `save` member function to persist the entries is another responsibilty
     - This would mean that other classes would alos have to implement their own method to save/load and it would have to be changed everywhere
