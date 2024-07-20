@@ -32,11 +32,10 @@ template <typename T> struct Specification
 
 // new: 
 template <typename T> 
-AndSpecification<T> operator&&(const Specification<T>& first, const Specification<T>& second)
+AndSpecification<T> operator &&(const Specification<T>& first, const Specification<T>& second)
 {
-    return { first, second };
+    return AndSpecification<T>(first, second);
 }
-
 
 // defines the interface that needs to be implemented by any kind of filter
 template <typename T> struct Filter
@@ -51,8 +50,9 @@ struct BetterFilter : Filter<Product>
         vector<Product*> result;
         for (auto& item : items)
             if (spec.is_satisfied(item))
+            {
                 result.push_back(item);
-        
+            }
         return result;
     }
 };
@@ -63,7 +63,7 @@ struct BetterFilter : Filter<Product>
 struct ColorSpecification : Specification<Product>
 {
     Color color;
-    ColorSpecification(Color color) : color(color) {}
+    ColorSpecification(const Color color) : color(color) {}
 
     bool is_satisfied(Product* item) const override
     {
@@ -74,7 +74,7 @@ struct ColorSpecification : Specification<Product>
 struct SizeSpecification : Specification<Product>
 {
     Size size;
-    SizeSpecification(Size size) : size(size) {}
+    SizeSpecification(const Size size) : size(size) {}
 
     bool is_satisfied(Product* item) const override
     {
@@ -116,7 +116,7 @@ int main() {
 
     // Store products in a vector to be filtered
 
-    vector<Product*> items {&apple, &tree, &house};
+    const vector<Product*> items {&apple, &tree, &house};
 
     /*** Filter items by passing in an overrided Specification to filter() ***/
     BetterFilter bf;
@@ -135,8 +135,12 @@ int main() {
         cout << item->name << " is green and large" << endl;
 
     // test a combination filter created using && overloaded operator
-    AndSpecification<Product> combofilter = ColorSpecification(Color::blue) && SizeSpecification(Size::large);
-    cout << "size of " << bf.filter(items, combofilter).size() << endl;
+
+    // AndSpecification<Product> combofilter = ColorSpecification(Color::green) && SizeSpecification(Size::small);
+    // ^ Compiler does not like this and makes the AndSpecification with both as just virtual Specification
+    ColorSpecification blue(Color::blue);
+    AndSpecification<Product> combofilter = blue && large;
+
     for (auto &item : bf.filter(items, combofilter))
         cout << item->name << " is blue and large" << endl;
 
