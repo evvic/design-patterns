@@ -53,6 +53,18 @@ public:
 
 };
 
+struct RectangleFactory
+{
+    static Rectangle create_rectangle(int w, int h)
+    {
+        return Rectangle(w, h);
+    }
+    static Rectangle create_square(int size)
+    {
+        return Rectangle(size, size);
+    }
+};
+
 
 // change a side and check the area
 void process(Rectangle& r)
@@ -78,6 +90,11 @@ int main() {
     process(sq);
 
     // It doesnt necessarily make sense to have Square class inherit from Rectangle class
+
+    // Using a factory to create Rectangles and Squares allows the Rectangle "subtype"
+    // to not break anything
+    Rectangle sq2 = RectangleFactory::create_square(5);
+    process(sq2);
 
     return 0;
 }
