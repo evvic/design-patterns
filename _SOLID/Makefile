@@ -43,7 +43,7 @@ PRG_SUFFIX_FLAG := 0
 #
 CFLAGS_INC :=
 CFLAGS := -g -Wall $(CFLAGS_INC)
-CXXFLAGS = -m64 -O0 -g3 -Wall -DUNIX=1 -DMETA=1
+CXXFLAGS = -m64 -O0 -g3 -Wall -DUNIX=1 -DMETA=1 -std=c++17
 LDFLAGS = -g3 -O0 -m64
 #
 ## ==================- NOTHING TO CHANGE BELOW THIS LINE ===================
