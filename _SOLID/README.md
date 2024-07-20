@@ -1,5 +1,10 @@
 # SOLID Design Principles
-- Acronym for the **5 most common programming design principles**
+- Acronym for the **5 most common programming design principles**:
+  1. [Single Responsibility Principle](#single-responsibility-principle)
+  2. [Open-Closed Principle](#open-closed-principle)
+  3. [Liskov Substitution Principle](#liskov-substitution-principle)
+  4. [Interface Segregation Principle](#interface-segregation-principle)
+  5. [Dependency Inversion Principle](#dependency-inversion-principle)
 
 ## **S**ingle Responsibility Principle
 - A class should have a primary responsibility and should not take up other responsibilites
