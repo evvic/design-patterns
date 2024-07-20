@@ -39,6 +39,21 @@
 - Squares shouldnt be seen as inheriting from Rectangles
 - Using a Factory to create either a Square or Rectangle would be better as both are still rectangles and does not break behavior
 
+## **I**nterface Segregation Principle
+- Do not make interfaces too large that implementers have to implement
+- Avoid stuffing too many methods into a single interface
+- Better to break up the interface into separate interfaces
+
+### Example [`4-isp.cpp`](4-isp.cpp)
+- Instead of having the print, scan and fax functionality all in one interface, make each a separate interface
+- Then multiple interfaces can be used to make one interface:
+```cpp
+struct IMachine: IPrinter, IScanner {};
+```
+- Here the Machine interface (`IMachine`) takes both printer and scanner inerfaces
+  - A machine inheriting from IMachine will now have the print and scan ability
+  - After overriding the virtual methods from `IPrinter` and `IScanner`
+
 # Setup
 - Install the boost library
 ```bash
