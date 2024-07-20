@@ -18,7 +18,7 @@ public:
         return width;
     }
 
-    void setWidth(int width) {
+    virtual void setWidth(int width) {
         Rectangle::width=width;
     }
 
@@ -26,7 +26,7 @@ public:
         return height;
     }
 
-    void setHeight(int height) {
+    virtual void setHeight(int height) {
         Rectangle::height=height;
     }
 
@@ -35,12 +35,33 @@ public:
     }
 };
 
+// inherit rectangle to make a square
+// the sides are set together for a square
+class Square : public Rectangle
+{
+public:
+    Square(int size) : Rectangle(size, size) {}
+
+    void setWidth(int width) override {
+        this->width = this->height = width;
+    }
+
+    void setHeight(int height) override {
+        this->width = this->height = height;
+    }
+
+
+};
+
+
+// change a side and check the area
 void process(Rectangle& r)
 {
+    int change = 10;
     int w = r.getWidth();
-    r.setHeight(10);
+    r.setHeight(change);
 
-    cout << "Area: " << r.area() << endl;
+    cout << "Expected area: " << change*w << ", got " << r.area() << endl;
 }
 
 int main() {
@@ -48,6 +69,15 @@ int main() {
 
     Rectangle r{3 ,4};
     process(r);
+
+    // Creating a square from the Square class that inherits from Rectangle
+    // will cause unexpected errors in process! Broken the Liskov Substitution
+    // Principle!!
+
+    Square sq{5};
+    process(sq);
+
+    // It doesnt necessarily make sense to have Square class inherit from Rectangle class
 
     return 0;
 }
