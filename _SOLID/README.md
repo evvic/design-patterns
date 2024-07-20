@@ -32,6 +32,12 @@
 
 ## **L**iskov Substitution Principle
 - Subtypes should be immediately substitutable for their base types
+- Objects of a subclass must behave the same way as the objects from the base class
+
+### Example [`3-lsp.cpp`](3-lsp.cpp)
+- The `Square` class inheriting from `Rectangle` does not behave the same way in the `process()` function
+- Squares shouldnt be seen as inheriting from Rectangles
+- Using a Factory to create either a Square or Rectangle would be better as both are still rectangles and does not break behavior
 
 # Setup
 - Install the boost library
