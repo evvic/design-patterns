@@ -59,3 +59,10 @@ Notes and examples on programming design patterns
 - Strategy
 - Template method
 - Visitor
+
+# Setup
+- Modern C++ is used for these design pattern examples (C++20)
+- VSCode interpreter is using `gnu++20`
+    - [Change C++ interpreter in VS Code](https://code.visualstudio.com/docs/cpp/config-linux#_cc-configurations)
+    - Enter `C/C++: Edit Configurations (UI)` into command palette
+    - Change the `C++ standard` value to `gnu++20` or newer
