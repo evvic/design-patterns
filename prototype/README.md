@@ -16,6 +16,12 @@
 - It helps when the class that the prototype object is from has a **copy constructor**
 - When an object is built from derived classes, it is good if all classes have a copy constructor
     - So each class only has to copy its certain part then pass the rest of the object on
+- Multiple ways to clone the prototype:
+    1. Implement a deep copy (class copy constructors)
+    2. `IPrototype` interface with a deep_copy member 
+        - Implement that interace into every class that is part of the overall object
+    3. Serialize and deserialize
+        - Traverse object graph to make a deep copy of its data
 
 ## Prototype Factory
 - When you only want people to create a new object based off a prototype
