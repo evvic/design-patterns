@@ -124,7 +124,7 @@ DrinkFactory()
 - `DrinkFactory` is the concrete factory and facilitator of `HotDrinkFactory`
 - Polymorphically map concrete factories based on abstract factory
 
-### ✨Functional✨ Drink Factory [`DrinkFactory.cpp`](DrinkFactory.cpp)
+### ✨Functional✨ Drink Factory [`DrinkFactory.hpp`](DrinkFactory.hpp)
 - Instead of using polymorphism with the map `hot_factories` in `DrinkFactory`, a map of lambda functions can be used instead
 ```cpp
 class FunctionalDrinkFactory
