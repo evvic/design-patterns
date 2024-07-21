@@ -69,7 +69,7 @@ auto john = EmployeeFactory::new_main_office_employee("John", 420);
 - **Deserialize**: restore all the aspects of an object
 - There is no magic bullet to automatically serialize/deserialize the object
 
-### Boost Library to Serialize [`serialize.cpp`]()
+### Boost Library to Serialize [`serialize.cpp`](serialize.cpp)
 - Using `boost` library can take care of some of the serialization boilerplate code
 - Boost automaticaally knows to follow the pointer to serialize the data its pointing to
     - The main benefit of usng boost over a copy constructor is not worrying about copying pointers
