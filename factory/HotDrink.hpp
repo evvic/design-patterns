@@ -30,11 +30,18 @@ struct Tea : HotDrink
     }
 };
 
-
 struct Coffee : HotDrink
 {
     void prepare(int volume) override
     {
         cout << "Grind coffee beans, boil water, pour " << volume << " ml into cup, add milk, enjoy!" << endl;
+    }
+};
+
+struct HotChocolate : HotDrink
+{
+    void prepare(int volume) override
+    {
+        cout << "Boil milk. pour " << volume << " ml into cup, add chocolate, enjoy!" << endl;
     }
 };

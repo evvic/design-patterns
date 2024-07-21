@@ -1,7 +1,7 @@
 #include <iostream>
 #include <memory>
 #include <map>
-// #include "HotDrink.hpp"
+#include "DrinkFactory.hpp"
 #include "HotDrinkFactory.hpp"
 using namespace std;
 
@@ -25,9 +25,12 @@ int main()
 {
     auto d = make_drink("coffee");
 
-    //   DrinkFactory df;
-    //   df.make_drink("coffee");
+    DrinkFactory df;
+    df.make_drink("coffee");
+    df.make_drink("tea");
+    df.make_drink("hotchocolate");
+    df.make_drink("hotchocolate");
 
-    //   getchar();
+    getchar(); // wait
     return 0;
 }
