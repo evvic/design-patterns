@@ -1,5 +1,5 @@
 # Build the target executable
-hotdrink: serialize.cpp
+serialize: serialize.cpp
 	g++ -std=c++20 serialize.cpp -o serialize
 
 # Remove object files
