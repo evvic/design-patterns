@@ -8,7 +8,7 @@ class PersonAddressBuilder : public PersonBuilderBase
     // simply always typing out PersonAddressBuilder
     typedef PersonAddressBuilder Self;
 public:
-    PersonAddressBuilder(Person& person) : PersonBuilderBase(person) {}
+    explicit PersonAddressBuilder(Person& person) : PersonBuilderBase(person) {}
 
     Self& at(std::string street_address)
     {

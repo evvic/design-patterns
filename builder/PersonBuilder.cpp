@@ -2,7 +2,7 @@
 #include "PersonAddressBuilder.hpp"
 #include "PersonJobBuilder.hpp"
 
-PersonBuilderBase::PersonBuilderBase(Person& person) : person(person) {}
+// PersonBuilderBase::PersonBuilderBase(Person& person) : person(person) {}
 
 PersonAddressBuilder PersonBuilderBase::lives() const
 {
@@ -14,4 +14,4 @@ PersonJobBuilder PersonBuilderBase::works() const
     return PersonJobBuilder{person};
 }
 
-PersonBuider::PersonBuider() : PersonBuilderBase(p) {}
+// PersonBuider::PersonBuider() : PersonBuilderBase(p) {}

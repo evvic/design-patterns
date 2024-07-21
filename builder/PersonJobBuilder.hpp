@@ -8,7 +8,7 @@ class PersonJobBuilder : public PersonBuilderBase
     // simply always typing out PersonJobBuilder
     typedef PersonJobBuilder Self;
 public:
-    PersonJobBuilder(Person& person) : PersonBuilderBase(person) {}
+    explicit PersonJobBuilder(Person& person) : PersonBuilderBase(person) {}
 
     Self& at(std::string company_name)
     {

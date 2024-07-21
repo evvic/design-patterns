@@ -9,17 +9,27 @@ class PersonBuilderBase
 {
 protected:
     Person& person;
+    explicit PersonBuilderBase(Person& person) : person(person) {}
+
 public:
-    PersonBuilderBase(Person& person);
+    // PersonBuilderBase(Person& person);
+
+    operator Person() const 
+    {
+        return std::move(person);
+    }
+
+    // builder facets
+
     PersonAddressBuilder lives() const;
     PersonJobBuilder works() const;
 };
 
 class PersonBuider : public PersonBuilderBase
 {
-private:
-    Person p;
+  
 public:
-    PersonBuider();
+    Person p;
+    PersonBuider() : PersonBuilderBase(p) {};
 
 };
