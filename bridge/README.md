@@ -1,9 +1,13 @@
 # Bridge
 - Connecting components together through abstractions
 - A mechanism that decouples an interface (hierarchy) from an implementation (hierarchy)
+- Can be viewed as a stronger form of encapuslation
 
 ## Motivation
 - Bridge prevents a 'Cartesian product' complexity explosion
+    - Whereby an exponential amount of methods have to be made for interface between different classes
+    - i.e. 2 concrete Shape classes and 2 Concrete render classes creates 4 methods for rendering shapes!
+- Decouple the abstraction from the implementation
 
 ## Pimpl Idiom
 - **P**rivate **Impl**ementation?
