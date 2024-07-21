@@ -7,7 +7,7 @@ Notes and examples on programming design patterns
 
 # Patterns
 - Below are the sections of patterns based on **Gamma Categorization**
-    - Named afeter Erich Gamma, one of the Gang of Four authors
+    - Named after Erich Gamma, one of the Gang of Four authors
 
 ## 1. Creational Design
 - Deal with the creation (construction) of objects
