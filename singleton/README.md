@@ -10,6 +10,11 @@
 - Want to prevent anyone from creating additional copies
 - Want thread safety for the object
 
+## Making a "safe" Singleton
+- Hide/delete the type's constructor, copy constructor, and copy assignment operators
+- Create a static method that returns a reference to static member
+- Guaranteed to be thread safe sicne C++11
+
 ## Singleton Class
 ### Example [`singletondb.cpp`](singletondb.cpp)
 - The constructor for the `SingletonDatabase` is private
