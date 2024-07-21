@@ -27,7 +27,7 @@ class SingletonDatabase
     map<string, int> capitals;
 public:
     // To make a safe singleton, delete the use of 
-    // copy constructor and assignment constructor
+    // copy constructor and assignment operator
     SingletonDatabase(SingletonDatabase const&) = delete;
     void operator=(SingletonDatabase const&) = delete;
 
