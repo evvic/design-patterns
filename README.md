@@ -20,11 +20,11 @@ Notes and examples on programming design patterns
         - step-by-step
 
 ### Creational Design Patterns
-- Builder
-- Factories
+- [Builder](builder/)
+- [Factories](factory/)
     - Abstract Factory
     - Factory Method
-- Prototype
+- [Prototype](prototype/)
 - Singleton
 
 ## 2. Structural Design
