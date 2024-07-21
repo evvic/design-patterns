@@ -35,8 +35,8 @@ Notes and examples on programming design patterns
     - Make the interface as easy to use as possible
 
 ### Structural Design Patterns
-- Adapter
-- Bridge
+- [Adapter](adapter/)
+- [Bridge](bridge/)
 - Composite
 - Decorator
 - Facade
