@@ -10,7 +10,8 @@
 - Want to prevent anyone from creating additional copies
 - Want thread safety for the object
 
-## Singleton Object [`singletondb.cpp`](singletondb.cpp)
+## Singleton Class
+### Example [`singletondb.cpp`](singletondb.cpp)
 - The constructor for the `SingletonDatabase` is private
 ```cpp
 SingletonDatabase(SingletonDatabase const&) = delete;
@@ -34,3 +35,44 @@ SingletonDatabase::get().getPopulation("Tokyo")
         - It's not a unit test of the function but an intergration test of also pulling data from "database"
     - No easy way to independently test methods 
     - This could be resolved with **dependency injection**
+
+## Multiton 
+- Sets a key-value store
+- Restricts the number of objects in that store and given to the client
+
+### Example [`multiton.cpp`](multiton.cpp)
+- This multiton can only have **3 instances** because the Key is `Importance` enum
+    - And only has 3 values
+```cpp
+enum class Importance {
+    primary,
+    secondary,
+    tertiary
+};
+```
+- The `Multiton` class 
+
+## Monostate
+- **Static fields cannot be inherited!**
+- Therefore creating a monostate class can lead to errors
+    - If developers try to make multiple objects
+    - Or use a monostate class as a base class
+- Usually a bad idea
+```cpp
+class Printer {
+    static int id;
+public:
+    int get_id() const {return id;}
+    void set_id(int value) {id = value;}
+}
+
+int main() {
+    Printer p;
+    int id = p.get_id();
+    Printer p2;
+}
+```
+- All of the storage is going into a static member
+- Both `Printers` are using the same data (`id`)
+- The latest `set` method sets every single instance
+
