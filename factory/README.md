@@ -1,6 +1,10 @@
 # Factory
 
 - A component responsible solely for the wholesale (not piecewise) creation of objects
+- Takes complete care of object creation
+- A static method that creates objects
+- A factory can be external or reside inside the object as an inner class
+- Hierarchies of factories can be used to create related objects
 
 The factory pattern can be split into 2 sub patterns based of the Gang of Four book:
 1. Factory Method
