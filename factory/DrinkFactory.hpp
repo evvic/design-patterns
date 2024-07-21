@@ -11,8 +11,6 @@ class DrinkFactory
 public:
     DrinkFactory()
     {
-        // how is this polymorphism?
-        // what does make_unique do/return?
         hot_factories["coffee"] = make_unique<CoffeeFactory>();
         hot_factories["tea"] = make_unique<TeaFactory>();
         hot_factories["hotchocolate"] = make_unique<HotChocolateFactory>();
