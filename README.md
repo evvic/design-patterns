@@ -37,7 +37,7 @@ Notes and examples on programming design patterns
 ### Structural Design Patterns
 - [Adapter](adapter/)
 - [Bridge](bridge/)
-- Composite
+- [Composite](composite/)
 - Decorator
 - Facade
 - Flyweight
