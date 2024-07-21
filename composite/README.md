@@ -3,6 +3,10 @@
 - A mechanism for treating individual (scalar) objects and compositions of objects in a uniform manner
 - Composite desing pattern is used to treat both single (scalar) and composite objects uniformly
     - i.e. `Foo` and `Composite<Foo>` have the same APIs
+- Objects can use other objects via inheritance/composition
+- Some composed and singular objects need similar/identical behaviors 
+- Composite design patterns allow us to treat both types of objects uniformly
+
 
 ## Motivation
 - Objects are using other objects fields/properties/members through inheritance and composition
@@ -14,6 +18,8 @@
 - Individual objects and collections of objects all behave in the same manner
 - This allows for recursion
     - A collection can be inside of a collection
+- A trick is a single object can masquerade as a collection
+    - Must implement `begin()`/`end()`
 
 ```cpp
 struct GraphicObject {
@@ -135,3 +141,18 @@ struct Neuron : SomeNeurons<Neuron>
     - Then it will incrmement after handing the first (only) Neuron
     - It will then see it has reached the `end()`
 
+## Composite and Proxy Combination
+
+- If a class had a number of properties that all needed getters and setters
+- It would be tedious to add more properties
+### Array backed properties
+- Solution is to have compositite storage for the fields
+
+### Example
+```cpp
+enum Abilities {strength, agility, intelligence, count};
+array<int, count> abilities;
+```
+- The properties in a class can be made into an enum
+    - The last element in the enum is `count`
+        - `count` will be equal to the length of the array
