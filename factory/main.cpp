@@ -25,11 +25,16 @@ int main()
 {
     auto d = make_drink("coffee");
 
+    // Object Oriented Polymporphic approach
     DrinkFactory df;
     df.make_drink("coffee");
     df.make_drink("tea");
     df.make_drink("hotchocolate");
     df.make_drink("hotchocolate");
+
+    // Functional approach
+    FunctionalDrinkFactory fdf;
+    fdf.make_drink("tea");
 
     getchar(); // wait
     return 0;

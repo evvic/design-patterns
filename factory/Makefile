@@ -5,9 +5,12 @@
 # ^ But because the .hpp files include definitions (not just function declarations),
 # they need to be included for make to track changes and recompile them
 
+# ^ BUUT the .hpp files only need to be included on the watched source files,
+# they then can still be inferred when calling g++ (NO WARNING!! =D )
+
 # Build the target executable
-hotdrink: main.cpp HotDrink.hpp HotDrinkFactory.hpp
-	g++ -std=c++20 main.cpp HotDrink.hpp HotDrinkFactory.hpp -o hotdrink
+hotdrink: main.cpp HotDrink.hpp HotDrinkFactory.hpp DrinkFactory.hpp
+	g++ -std=c++20 main.cpp -o hotdrink
 
 # Remove object files
 clean: 

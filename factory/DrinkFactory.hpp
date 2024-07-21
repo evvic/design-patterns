@@ -2,9 +2,11 @@
 #include "HotDrink.hpp"
 #include "HotDrinkFactory.hpp"
 #include <map>
+#include <functional>
 
 using namespace std;
 
+// Object Oriented Polymorphic approach
 class DrinkFactory
 {
     map<string, unique_ptr<HotDrinkFactory>> hot_factories;
@@ -20,10 +22,30 @@ public:
     // type of factory at compile time (Could be TeaFactory or CoffeeFactory)
     // Compiler only knows all Factoires contain a make() and return a 
     // unique_ptr<HotDrink>
-    unique_ptr<HotDrink> make_drink(const string& name)
+    unique_ptr<HotDrink> make_drink(const string& name, const int volume=100)
     {
         auto drink = hot_factories[name]->make();
-        drink->prepare(200);
+        drink->prepare(volume);
         return drink;
+    }
+};
+
+// Functional approach
+class FunctionalDrinkFactory
+{
+    map<string, function<unique_ptr<HotDrink>(int volume)>> factories;
+public:
+    FunctionalDrinkFactory()
+    {
+        factories["tea"] = [](const int volume) {
+            auto tea = make_unique<Tea>();
+            tea->prepare(volume);
+            return tea;
+        };
+    }
+
+    unique_ptr<HotDrink> make_drink(const string& name, const int volume=100)
+    {
+        return factories[name](volume);
     }
 };
