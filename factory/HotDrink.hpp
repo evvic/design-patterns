@@ -14,8 +14,6 @@
 
 using namespace std;
 
-
-
 struct HotDrink
 {
     virtual ~HotDrink() = default;
