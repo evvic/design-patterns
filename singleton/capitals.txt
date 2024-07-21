@@ -1,0 +1,20 @@
+Tokyo
+37339000
+Delhi
+31181000
+Beijing
+21893000
+Brasil
+3093000
+Seoul
+9963000
+Mexico City
+21800000
+Cairo
+20400000
+London
+8900000
+Buenos Aires
+15090000
+Jakarta
+10600000
