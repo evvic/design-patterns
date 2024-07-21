@@ -119,3 +119,27 @@ DrinkFactory()
 ```
 - `DrinkFactory` is the concrete factory and facilitator of `HotDrinkFactory`
 - Polymorphically map concrete factories based on abstract factory
+
+### ✨Functional✨ Drink Factory [`DrinkFactory.cpp`](DrinkFactory.cpp)
+- Instead of using polymorphism with the map `hot_factories` in `DrinkFactory`, a map of lambda functions can be used instead
+```cpp
+class FunctionalDrinkFactory
+{
+    map<string, function<unique_ptr<HotDrink>(int volume)>> factories;
+public:
+    FunctionalDrinkFactory()
+    {
+        factories["tea"] = [](const int volume) {
+            auto tea = make_unique<Tea>();
+            tea->prepare(volume);
+            return tea;
+        };
+    }
+
+    unique_ptr<HotDrink> make_drink(const string& name, const int volume=100)
+    {
+        return factories[name](volume);
+    }
+};
+```
+- In the above example only 1 lamda ("tea") is defined
