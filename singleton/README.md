@@ -50,7 +50,35 @@ enum class Importance {
     tertiary
 };
 ```
-- The `Multiton` class 
+- The `Multiton` class has the main purpose of tracking the objects created
+```cpp
+template <typename T, typename Key = std::string>
+class Multiton
+{
+public:
+    static shared_ptr<T> get(const Key& key)
+    {
+        if (const auto it = instances.find(key); 
+            it != instances.end()) 
+        {
+            return it->second;
+        }
+        
+        auto instance = make_shared<T>();
+        instances[key] = instance;
+        return instance;
+    }
+private:
+    static map<Key, shared_ptr<T>> instances;
+    ... // other private members
+};
+```
+- `get()` method is used to get an existing object or create a new one
+    - check if key is already in the map and return the pointer to the already created object
+    - else create a new object, add to map, and return pointer to new object
+- `instances` is a static map that holds the pointers to the created objects
+
+
 
 ## Monostate
 - **Static fields cannot be inherited!**
