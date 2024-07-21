@@ -25,7 +25,7 @@ Notes and examples on programming design patterns
     - Abstract Factory
     - Factory Method
 - [Prototype](prototype/)
-- Singleton
+- [Singleton](singleton/)
 
 ## 2. Structural Design
 - Concerned with the structure of the class/object
