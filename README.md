@@ -21,7 +21,7 @@ Notes and examples on programming design patterns
 
 ### Creational Design Patterns
 - [Builder](builder/)
-- [Factories](factory/)
+- [Factory](factory/)
     - Abstract Factory
     - Factory Method
 - [Prototype](prototype/)
