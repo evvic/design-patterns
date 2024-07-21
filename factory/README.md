@@ -97,5 +97,25 @@ auto p = Point::Factory.NewCartesian(5, 5);
 ```
 
 ## Abstract Factory
-- Can create hierarchy of factories using Abstract factories
+- Can create hierarchy of factories using Abstract factory
+
+### Example Drink Factory [`main.cpp`](main.cpp)
+```cpp
+struct HotDrinkFactory
+{
+    virtual unique_ptr<HotDrink> make() const = 0;
+};
+```
+- The `HotDrinkFactory` class is declared as abstract with 1 virtual function `make()`
+  - This enforces derived classes (`TeaFactory`, `CoffeeFactory`, and `HotChocolateFactory`) to override `make()` which returns a pointer to a HotDrink object
+- Every derived `HotDrink` class has a Factory of itself
+```cpp
+DrinkFactory()
+{
+    hot_factories["coffee"] = make_unique<CoffeeFactory>();
+    hot_factories["tea"] = make_unique<TeaFactory>();
+    hot_factories["hotchocolate"] = make_unique<HotChocolateFactory>();
+}
+```
+- `DrinkFactory` is the concrete factory and facilitator of `HotDrinkFactory`
 - Polymorphically map concrete factories based on abstract factory
