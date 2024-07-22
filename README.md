@@ -1,8 +1,8 @@
 # design-patterns
 Notes and examples on programming design patterns
 
-# Design Principes
-- 5 of the most common design pronciples are covered with notes and examples under [_SOLID](_SOLID/README.md)
+# Design Principles
+- 5 of the most common design principles are covered with notes and examples under [_SOLID](_SOLID/README.md)
 
 
 # Patterns
