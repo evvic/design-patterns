@@ -38,7 +38,7 @@ Notes and examples on programming design patterns
 - [Adapter](adapter/)
 - [Bridge](bridge/)
 - [Composite](composite/)
-- Decorator
+- [Decorator](/decorator)
 - Facade
 - Flyweight
 - Proxy
