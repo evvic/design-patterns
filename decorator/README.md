@@ -154,3 +154,28 @@ template <IsAShape T> struct ColoredShape2 : T {
 
 ## Functional Decorator
 #### [`logger_wrapper.cpp`](logger_wrapper.cpp)
+- This program implements a `Logger` struct that takes a function
+- When the function is invoked it simply prints an enter and exit message
+    - But it could be expanded to do much more!
+
+```c++
+template <typename> struct Logger;
+```
+- Incomplete template declaration
+- This enforces specialization
+    - The template can work with specific fucntion signatures
+    - Meaning the later definition of `Logger` struct
+
+#### `make_logger()`
+```cpp
+template <typename R, typename... Args>
+auto make_logger(R (*func)(Args...), const string& name)
+{
+    auto built_func = std::function<RetType(Args...)>(func);
+    return Logger<RetType(Args...)>(built_func, name);
+}
+```
+- Takes in a function pointer and the string name of the function
+- The ellpsis `...` represents a spread of 0 to any number of arguments
+
+todo EXPLAIN HOW THE PROGRAM WORKS AND ASK AI
