@@ -13,6 +13,7 @@
 
 ## Dynamic Decorator
 - A decorator that inherits from the interface class and then wraps around the concrete object
+- A dynamic decorator keeps the reference to the decorated object(s)
 ```cpp
 struct Shape {
   virtual string str() const = 0;
