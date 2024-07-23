@@ -73,7 +73,7 @@ public:
         }
     };
 
-    TextRange& get_range(int start, int end)
+    TextRange& set_range(int start, int end)
     {
         formatting.emplace_back(TextRange{ start, end });
         return *formatting.rbegin();
@@ -93,7 +93,9 @@ public:
             {
                 if (rng.covers(i) && rng.capitalize)
                     c = toupper(c);
-                
+                // attempted to add markdown italics formatting...
+                if (rng.italic && (rng.start == i or rng.end == i))
+                    c = /* '_' + */ toupper(c);
                 s += c;
             }
         }
@@ -112,6 +114,6 @@ int main(int argc, char* argv[])
     cout << ft << endl;
 
     BetterFormattedText bft("This is a brave new world");
-    bft.get_range(10, 15).capitalize = true;
+    bft.set_range(10, 15).capitalize = true;
     cout << bft << endl;
 }
