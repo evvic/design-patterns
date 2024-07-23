@@ -1,6 +1,9 @@
 # Flyweight
 - Space optimization design pattern
 - A space optimization technique that allows using less memory by storing externally the data associated with similar objects
+- Store common data externally
+    - Refer to data via indices or pointers
+    - Define the idea of "ranges" on homogeneous collections
 
 ## Motivation
 - Avoid redundancy when story data
