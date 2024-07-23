@@ -38,9 +38,9 @@ Notes and examples on programming design patterns
 - [Adapter](adapter/)
 - [Bridge](bridge/)
 - [Composite](composite/)
-- [Decorator](/decorator)
-- Facade
-- Flyweight
+- [Decorator](/decorator/)
+- [Facade](/facade/)
+- [Flyweight](/flyweight/)
 - Proxy
 
 ## 3. Behavioral Design
