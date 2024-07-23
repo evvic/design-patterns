@@ -40,7 +40,7 @@ struct RemotePong : Pingable
         uri_builder builder(U("/api/pingpong/"));
 
         // Append the message as a query parameter
-        builder.append_query(U("message"), message);
+        builder.append_query(U("message"), "Ping");
         
         return client.request(methods::GET, builder.to_string())
             .then([](http_response r) {
@@ -55,13 +55,13 @@ struct RemotePong : Pingable
 
 void tryit(Pingable& pp)
 {
-    wcout << pp.ping(L"ping") << "\n";
+    wcout << L"Ping" << ' ' << pp.ping(L"ping") << "\n";
 }
 
 
 int main()
 {
-    Pong pp;
+    RemotePong pp;
     for (int i = 0; i < 3; ++i)
     {
         tryit(pp);
