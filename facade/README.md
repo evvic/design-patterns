@@ -2,6 +2,7 @@
 - Exposing several components through a single interface
 - Balancing complexity and presentation/useability
 - Provides a simple, easy to understand, user interface over a large and sophisticated body of code
+- Build a Facade to provide a simplified API over a set of classes
 
 ## Motivation
 - i.e. a house has many subsystems
