@@ -1,4 +1,6 @@
 # Communication Proxy
+- Communication proxy abstracts the communication work out of the interface
+    - So it appears like the typical interface (but doing some sort of communication work behind the scenes)
 
 ## C++ Webserver Example
 

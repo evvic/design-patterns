@@ -41,7 +41,7 @@ Notes and examples on programming design patterns
 - [Decorator](/decorator/)
 - [Facade](/facade/)
 - [Flyweight](/flyweight/)
-- Proxy
+- [Proxy](/proxy/)
 
 ## 3. Behavioral Design
 - There is no central theme to these design patterns

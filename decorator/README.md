@@ -2,6 +2,15 @@
 - Give an existing object additional functionality
 - Facilitates the addition of behaviors to individual objects
 
+## Proxy vs. Decorator
+- Proxy interface provides an identical interface
+- Decorator provides an enhanced interface
+- Decorator typically aggregates (or has a reference to) what it is decorating
+    - The proxy doesn't have to
+        - The proxy can be a brand new object not relating to the underlying object
+        - Just has to masquerade as that object being worked with
+- Proxy does not have to be materialized
+
 ## Motivation
 - Want to augment an object with additional functionality
     - Without rewriting/altering the existing class (OCP)

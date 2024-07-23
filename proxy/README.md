@@ -1,14 +1,17 @@
 # Proxy
 - An interface for accessing a particular resource
+- A proxy is an object which looks and behaves as if it were the object its proxying
+- **A proxy has the same interface as the underlying object**
+    - To create a proxy, replicate the existing interface of the object
+        - Add relevant functionality to the redefined member functions
+
+## Motivation
+- Allows the same interface with different behavior in the background
 - A class that functions as an interface to a particular resource
     - That resource may be:
         - remove
         - expensive to construct
         - may require logging or someother functionality
-- A proxy is an object which looks and behaves as if it were the object its proxying
-
-## Motivation
-- Allows the same interface with different behavior in the background
 
 ## Smart Pointer
 - The C++ smart pointers is a proxy design
