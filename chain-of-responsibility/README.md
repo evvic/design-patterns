@@ -4,6 +4,9 @@
     - Optionally having default processing implementation
     - An ability to to terminate the processing chain
         - One component in the chain an stop the rest of the components from processing
+- CoR can be represented as:
+    - A chain of pointers/references (singly linked list)
+    - Centralized list (broker)
 
 ## Motivation
 - A "chain" of objects that can affect the object below it
@@ -12,6 +15,8 @@
     - Can play card modifiers on top of the base card to chain stats
 
 ## Pointer Chain
+- Decentralized method for chaining
+
 #### [`cards.cpp`](cards.cpp)
 
 - The creature `CreatureCard` has base abilities
@@ -44,7 +49,7 @@ void NoBonusesModifier::handle() override {}
 - Therefore this card applied then does not allow the bonuses that come before it to be applied
 
 ## Broker Chain
-
+- Event Broker which acts as **centralized** list
 - The ability to **query** a creatures stat
     - Every live element in the game has the ability to modify this stat
 
