@@ -48,9 +48,9 @@ Notes and examples on programming design patterns
     - They are all different (with some slight overlap)
 
 ### Behavioral Design Patterns
-- Chain of responsibility
-- Command
-- Interpreter
+- [Chain of responsibility](/chain-of-responsibility/)
+- [Command](/command/)
+- [Interpreter](/interpreter/)
 - Iterator
 - Mediator
 - Memento
