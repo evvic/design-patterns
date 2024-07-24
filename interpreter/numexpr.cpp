@@ -163,7 +163,7 @@ unique_ptr<Element> parse(const vector<Token>& tokens)
 
 int main()
 {
-    string input{ "4+4+4" }; // see if you can make nested braces work
+    string input{ "4+4+4+3" };
     auto tokens = lex(input);
 
     // let's see the tokens
