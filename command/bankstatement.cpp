@@ -129,7 +129,8 @@ struct MoneyTransferCommand : DependentCompositeCommand
 {
     MoneyTransferCommand(
         BankAccount& from,
-        BankAccount& to, int amount
+        BankAccount& to,
+        int amount
     ) : DependentCompositeCommand {
         BankAccountCommand{from, BankAccountCommand::withdraw, amount},
         BankAccountCommand{to, BankAccountCommand::deposit, amount}
@@ -141,13 +142,16 @@ struct MoneyTransferCommand : DependentCompositeCommand
 int main()
 {
     BankAccount ba;
+    BankAccount ba2;
     /*vector<BankAccountCommand> commands{*/
     CompositeBankAccountCommand commands{
         BankAccountCommand{ ba, BankAccountCommand::deposit, 100 },
+        BankAccountCommand{ ba, BankAccountCommand::deposit, 400 },
         BankAccountCommand{ ba, BankAccountCommand::withdraw, 200 }
     };
 
-    cout << ba.balance << endl;
+    cout << "Account 1 balance: " << ba.balance <<  endl;
+    cout << "Account 2 balance: " << ba2.balance <<  endl;
 
     // apply all the commands
     /*for (auto& cmd : commands)
@@ -156,14 +160,23 @@ int main()
     }*/
     commands.call();
 
-    cout << ba.balance << endl;
+    cout << "Account 1 balance: " << ba.balance <<  endl;
+    cout << "Account 2 balance: " << ba2.balance <<  endl;
 
     /*for_each(commands.rbegin(), commands.rend(),
     [](const BankAccountCommand& cmd) { cmd.undo(); });*/
+
+    auto transfercmd = MoneyTransferCommand{ba, ba2, 69};
+    transfercmd.call();
+
+    cout << "Account 1 balance: " << ba.balance <<  endl;
+    cout << "Account 2 balance: " << ba2.balance <<  endl;
+
+    transfercmd.undo();
     commands.undo();
 
-    cout << ba.balance << endl;
+    cout << "Account 1 balance: " << ba.balance <<  endl;
+    cout << "Account 2 balance: " << ba2.balance <<  endl;
 
-    getchar();
     return 0;
 }

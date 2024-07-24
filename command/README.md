@@ -1,7 +1,11 @@
 # Command
 - An object which represents an instuction or a set of instructions to perform a particular action
 - Contains all the  information necessary for the action to be taken
--
+- Encapsulate the details of the operation into a separate object
+    - Can store/serialize th object
+- Define the the instruction(s) for applying the command
+- Optionally have instructions to rollback/undo
+- Macros = composite commands
 
 ## Motivation
 - Ordinary C++ statements are perishable
@@ -65,4 +69,22 @@ struct CompositeBankAccountCommand : vector<BankAccountCommand>, Command {
     - Also inherits `Command`, thefore making `CompositeBankAccountCommand` a **composite**
 - `BankAccountCommand`s can be pushed onto the vector
     - They commands are not executed until `CompositeBankAccountCommand::call()` is invoked
+
+#### MoneyTransferCommand
+```cpp
+struct MoneyTransferCommand : DependentCompositeCommand
+{
+    MoneyTransferCommand(
+        BankAccount& from,
+        BankAccount& to,
+        int amount
+    ) : DependentCompositeCommand {
+        BankAccountCommand{from, BankAccountCommand::withdraw, amount},
+        BankAccountCommand{to, BankAccountCommand::deposit, amount}
+    } 
+    {}
+};
+```
+- Creates 2 inverse transactions to similuate transferring money from one account to the other
+- Relies on `DependentCompositeCommand` to verify the entire sub set of commands for the transfer all succeeded
 
