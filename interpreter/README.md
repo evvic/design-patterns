@@ -59,3 +59,23 @@ vector<Token> lex(const string& input)
 
 ### Parser
 
+
+> Note! A composite pattern could be used to group nested binary expressions
+
+#### BinaryOperation
+```cpp
+struct BinaryOperation : Element
+{
+    enum Type { addition, subtraction } type;
+    shared_ptr<Element> lhs, rhs;
+
+    int eval() const override
+    {
+        if (type == addition) 
+            return lhs->eval() + rhs->eval();
+        return lhs->eval() - rhs->eval();
+    }
+};
+```
+- In this basic example a `BinaryOperation` object is used to do the calcualtions for each step
+    - It takes the integer values on the left and right hand side of the operation and returns the result
