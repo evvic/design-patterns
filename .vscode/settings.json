@@ -67,6 +67,10 @@
         "thread": "cpp",
         "typeindex": "cpp",
         "variant": "cpp",
-        "*.dat": "cpp"
+        "*.dat": "cpp",
+        "csignal": "cpp",
+        "any": "cpp",
+        "codecvt": "cpp",
+        "*.ipp": "cpp"
     }
 }
