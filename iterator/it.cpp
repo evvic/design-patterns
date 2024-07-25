@@ -46,7 +46,7 @@ template <typename T> struct BinaryTree
     Node<T>* root = nullptr;
 
     explicit BinaryTree(Node<T>* const root)
-        : root{ root }, pre_order{ *this }
+        : root{ root } 
     {
         root->set_tree(this);
     }
