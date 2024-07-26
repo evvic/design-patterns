@@ -2,6 +2,10 @@
 - Fascilitates communication between components
     - Without them necessarily being aware of each other
     - Or having direct (reference) acces to each other
+- Create a mediator then have each object in the system refer to the mediator
+- Typically a mediator is a singleton
+- Mediator has functions the components can call
+- Components have functions the Mediator can call
 
 ## Motivation
 - Components may go in and out of the system at anytime
