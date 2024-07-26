@@ -51,8 +51,8 @@ Notes and examples on programming design patterns
 - [Chain of responsibility](/chain-of-responsibility/)
 - [Command](/command/)
 - [Interpreter](/interpreter/)
-- Iterator
-- Mediator
+- [Iterator](/iterator/)
+- [Mediator](/mediator/)
 - Memento
 - Observer
 - State
