@@ -53,8 +53,8 @@ Notes and examples on programming design patterns
 - [Interpreter](/interpreter/)
 - [Iterator](/iterator/)
 - [Mediator](/mediator/)
-- Memento
-- Observer
+- [Memento](/memento/)
+- [Observer](/observer/)
 - State
 - Strategy
 - Template method
