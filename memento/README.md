@@ -4,6 +4,11 @@
 - A token/handle rtepresenting the system state
     - Lets the state be rolled back to the what the token saved
 
+- Rollback to states arbitrarily
+- The `Memento` is simply a token/handle class with no functions of its own
+- Can be used to implement undo/redo
+    - Not recommended if the system has lots of state
+
 - Similar to the Command pattern
     - But the Memento simply saves snapshots of the system it can revert to
     - While the Command records every change and knows how to reverse the change
@@ -64,6 +69,7 @@ public:
     - In this BankAccount example the internal state is small
 
 #### New BankAccount Class
+- Can walk forwards and backwards through the saved mementos with undo/redo
 ```cpp
 class BankAccount // supports undo/redo
 {
