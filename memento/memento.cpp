@@ -62,10 +62,11 @@ public:
     {
         if (m)
         {
-        balance = m->balance;
-        changes.push_back(m);
-        current = changes.size() - 1;
+            balance = m->balance;
+            changes.push_back(m);
+            current = changes.size() - 1;
         }
+        cout << "Cannot restore: memento is invalid." << endl;
     }
 
     shared_ptr<Memento> undo()
@@ -77,7 +78,8 @@ public:
             balance = m->balance;
             return m;
         }
-        return{};
+        cout << "Cannot undo: already at oldest state." << endl;
+        return{}; // returning a null shared_ptr
     }
 
     shared_ptr<Memento> redo()
@@ -89,7 +91,8 @@ public:
             balance = m->balance;
             return m;
         }
-        return{};
+        cout << "Cannot redo: already at latest state." << endl;
+        return{}; // returning a null shared_ptr
     }
 
     friend ostream& operator<<(ostream& os, const BankAccount2& obj)
@@ -117,18 +120,19 @@ void memento()
 void undo_redo()
 {
     BankAccount2 ba{ 100 };
-    ba.deposit(50);
-    ba.deposit(25); // 125
+    // auto mem1 = ba.deposit(50);
+    // ba.deposit(25); // 125
     cout << ba << "\n";
 
-    ba.undo();
+    auto mem1 = ba.undo();
     cout << "Undo 1: " << ba << "\n";
     ba.undo();
     cout << "Undo 2: " << ba << "\n";
     ba.redo();
     cout << "Redo 2: " << ba << "\n";
 
-    ba.undo();
+    // 
+    ba.restore(mem1);
 }
 
 int main()
@@ -136,6 +140,5 @@ int main()
     // memento()
     undo_redo();
 
-    getchar();
     return 0;
 }
