@@ -114,6 +114,8 @@ void BankAccount::restore(const shared_ptr<Memento>& m) {
 }
 ```
 - Check the shared_ptr to a Memento is valid (not just a default initialized shared pointer)
+    - This works because `shared_ptr` will evaluate to false if it is not pointing to a constructed object
+        - aka is is a nullptr
 - Then update the balance and add the Memento ptr to the vector
     - Have current also point to the last (latest) Memento in the vector
 
@@ -125,11 +127,25 @@ shared_ptr<Memento> BankAccount::undo() {
         balance = m->balance;
         return m;
     }
-    return{};
+    return{}; // returning a null shared_ptr
 }
 ```
 - First check there is a previous state to undo to (`current > 0`)
 - Decrement current to the previous
 - Update the balance to the Memento stored at `changes[current]`
 - Return that memento
+
+```cpp
+shared_ptr<Memento> redo() {
+    if (current + 1 < changes.size()) {
+        ++current;
+        auto m = changes[current];
+        balance = m->balance;
+        return m;
+    }
+    return{}; // returning a null shared_ptr
+}
+```
+- First check redo is possible, that there is a more recent state to redo to
+- Then simply incrememnt `current` index, update the balance, and return the Memento current now points to
 
