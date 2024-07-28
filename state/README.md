@@ -74,3 +74,33 @@ ls.off();
 - The second consecutive time calling `off` will not change state from off to off
     - It will give the message "Light is already off"
 
+### Handmade State Implementation
+- The typical method uses states as enum members
+
+#### Enum States
+```cpp
+enum class State
+{
+    OffHook,
+    Connecting,
+    Connected,
+    OnHold,
+    OnHook
+};
+```
+- Define the states with an enum
+
+#### Enum Triggers
+```cpp
+enum class Trigger
+{
+    CallDialed,
+    HungUp,
+    CallConnected,
+    PlacedOnHold,
+    TakenOffHold,
+    LeftMessage,
+    StopUsingPhone
+};
+```
+- 
