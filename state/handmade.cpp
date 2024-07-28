@@ -107,21 +107,6 @@ public:
         };
     }
 
-    State getExitState()
-    {
-        return exitState;
-    }
-
-    State getState()
-    {
-        return currentState;
-    }
-
-    map<State, vector<pair<Trigger, State>>> getRules()
-    {
-        return rules;
-    }
-
     void setState(int input)
     {
         if (input < 0 || (input+1) > rules[currentState].size())
@@ -132,31 +117,51 @@ public:
         currentState = rules[currentState][input].second;
     }
 
+    State getState()
+    {
+        return currentState;
+    }
+
+    State getExitState()
+    {
+        return exitState;
+    }
+
+    map<State, vector<pair<Trigger, State>>> getRules()
+    {
+        return rules;
+    }
+
+    vector<pair<Trigger, State>> getRules(State s)
+    {
+        return rules[s];
+    }
 };
 
-int main(char* argv[])
+int main(int argc, char* argv[])
 {
 
 
     Phone phone;
 
+
     while (true)
     {
         cout << "The phone is currently " << phone.getState() << endl;
-    // select_trigger:
         cout << "Select a trigger:" << "\n";
 
         int i = 0;
-        for (auto item : phone.getRules())
+        for (auto item : phone.getRules(phone.getState()))
         {
             cout << i++ << ". " << item.first << "\n";
         }
 
+        cout << "> ";
         int input;
         cin >> input;
+
         phone.setState(input);
 
-        
         if (phone.getState() == phone.getExitState()) break;
     }
 
