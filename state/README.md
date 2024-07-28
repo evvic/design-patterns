@@ -142,3 +142,80 @@ public:
     - i.e. in `OffHook` State, `Trigger::CallDialed` would trigger to `Connecting` state
 
 ### Boost MSM (Meta State Machine)
+- Using Boosts Meta State Machine
+    - With Boost meta programming library (MPL)
+
+#### [`msm.cpp`](msm.cpp)
+#### Transiitons
+```cpp
+struct CallDialed {};
+struct HungUp {};
+struct CallConnected {};
+struct PlacedOnHold {};
+struct TakenOffHold {};
+struct LeftMessage {};
+struct PhoneThrownIntoWall {};
+```
+- All the transitions are declared as empty structs
+- Instead of using enums for states and transitions, Boost has them be structs
+
+#### PhoneStateMachine States
+```cpp
+struct PhoneStateMachine : state_machine_def<PhoneStateMachine>
+{
+    bool angry{ true }; // start with false
+
+    struct OffHook : state<> {};
+```
+- The states are also defined as structs but within the state machine class implementing Boost MSM
+    - i.e. `OffHook` state
+
+#### PhoneStateMachine State with Entry Function
+```cpp
+// within PhoneStateMachine class {...
+struct Connecting : state<>
+{
+    template <class Event, class FSM>
+    void on_entry(Event const& evt, FSM&)
+    {
+        cout << "We are connecting..." << endl;
+    }
+    // also on_exit
+};
+```
+- A function can be declared with the State so it runs on the entry to the state
+    - There are functions within the function that can be "overridden":
+        - `on_entry`
+        - `on_exit`
+
+#### Transition Table
+- Similar to the `map` used for the state made by hand
+
+```cpp
+// start, event, target, action, guard
+struct transition_table : mpl::vector <
+    Row<OffHook, CallDialed, Connecting>,
+    Row<Connecting, CallConnected, Connected>,
+    Row<Connected, PlacedOnHold, OnHold>,
+    Row<OnHold, PhoneThrownIntoWall, PhoneDestroyed, 
+        PhoneBeingDestroyed, CanDestroyPhone>
+> {};
+```
+- Uses MPL (meta programming library) 
+    - A vector of rows of typenames
+- Each row specifies the:
+    - **starting state**
+    - **transition**
+    - **final state**
+- i.e. `OffHook` transitions with `CallDialed` into `Connecting` state
+
+```cpp
+Row<OnHold, PhoneThrownIntoWall, PhoneDestroyed, PhoneBeingDestroyed, CanDestroyPhone>
+```
+- Additional customization can be applied to a row
+- The 4th item in the row is the action
+    - This is triggered upon state change
+- The 5th item in the row is the guard
+    - This struct overloads the `()` operator to return a boolean
+    - The function `()` determines whether the state transition is allowed by what it returns
+
