@@ -10,7 +10,8 @@
 
 ## Dynamic Strategy
 - Render a list of elements in either Markdown or HTML using the Dynamic Strategy pattern
-#### [`dynamic-list.cpp`](dynamic-list.cpp)
+#### [`list-strategy.cpp`](list-strategy.cpp)
+- **Methods in [`list-strategy.cpp`](list-strategy.cpp) are used for dynamic and static strategy**
 
 ```cpp
 enum class OutputFormat
@@ -34,7 +35,7 @@ struct ListStrategy
 - This is ideal because the Mardown and HTML list renderers may not need to implement all these functions
     - Although `add_list_item` could be purely virtual because it is required by both Markdown and HTML strategy
 
-#### Dynamic TextProcessor
+#### Dynamic TextProcessor [`dynamic-list.cpp`](dynamic-list.cpp) 
 ```cpp
 struct TextProcessor {
     // ...
@@ -67,4 +68,25 @@ void set_output_format(const OutputFormat format)
             - `start`: adds the opening list start tag `<ul>`
             - `end`: adds the closing list end tag `</ul>`
             - `add_list_item`: adds the list item with its tags `<li> ... </li>`
+
+## Static Strategy
+- Using the same objects in [`list-strategy.cpp`](list-strategy.cpp) as dynamic strategy
+
+#### Static TextProcessor [`static-list.cpp`](static-list.cpp) 
+```cpp
+template <typename LS>
+struct TextProcessor
+{
+    LS list_strategy;
+    void append_list(const vector<string> items)
+    {
+        list_strategy.start(oss);
+        for (auto& item : items)
+            list_strategy.add_list_item(oss, item);
+        list_strategy.end(oss);
+    }
+```
+- Very similar to dynamic strategy except its using templating to determine the correct `list_strategy` to use in `TextProcessor`
+    - Therefore it does not have the function `set_output_format()`
+- Does not have the ability to switch the strategy at runtime
 
