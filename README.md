@@ -55,8 +55,8 @@ Notes and examples on programming design patterns
 - [Mediator](/mediator/)
 - [Memento](/memento/)
 - [Observer](/observer/)
-- State
-- Strategy
+- [State](/state/)
+- [Strategy](/strategy/)
 - Template method
 - Visitor
 
