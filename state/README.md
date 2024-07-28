@@ -77,6 +77,7 @@ ls.off();
 ### Handmade State Implementation
 - The typical method uses states as enum members
 
+#### [`handmade.cpp`](handmade.cpp)
 #### Enum States
 ```cpp
 enum class State
@@ -103,4 +104,41 @@ enum class Trigger
     StopUsingPhone
 };
 ```
-- 
+- Triggers are made to define the transitions between states
+    - i.e. `CallConnected` trigger would lead to `Connected` state
+    - i.e. `HungUp` trigger leads to `OffHook`
+
+#### State Change Rules
+```cpp
+class Phone {
+    map<State, vector<pair<Trigger, State>>> rules;
+    State currentState{ State::OffHook }, exitState{ State::OnHook };
+
+public:
+    Phone() {
+        rules[State::OffHook] = {
+            {Trigger::CallDialed, State::Connecting},
+            {Trigger::StopUsingPhone, State::OnHook}
+        };
+
+        rules[State::Connecting] = {
+            {Trigger::HungUp, State::OffHook},
+            {Trigger::CallConnected, State::Connected}
+        };
+
+        rules[State::Connected] = {
+            {Trigger::LeftMessage, State::OffHook},
+            {Trigger::HungUp, State::OffHook},
+            {Trigger::PlacedOnHold, State::OnHold}
+        };
+
+        rules[State::OnHold] = {
+            {Trigger::TakenOffHold, State::Connected},
+            {Trigger::HungUp, State::OffHook}
+        };
+    }
+```
+- Rules determine which state can be transitioned to other states depending on triggers
+    - i.e. in `OffHook` State, `Trigger::CallDialed` would trigger to `Connecting` state
+
+### Boost MSM (Meta State Machine)

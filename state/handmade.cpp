@@ -140,10 +140,7 @@ public:
 
 int main(int argc, char* argv[])
 {
-
-
     Phone phone;
-
 
     while (true)
     {
