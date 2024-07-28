@@ -36,7 +36,7 @@ protected:
         - Search by key for the value, or by value for the key
     - This is useful here because the bimap will be searched by the names too, to see if they exist
 
-#### Add to databse
+#### Add to database
 ```cpp
 static key User::add(const string& s)
 {

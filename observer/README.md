@@ -1,8 +1,11 @@
 # Observer
 
 - Getting notifications when things happen
-- The **observer** is an object that wishes to be informed about events happening in the system
-- The **observable** is the entity generating the events
+- Two participants:
+    - The **observer** is an object that wishes to be informed about events happening in the system
+    - The **observable** is the entity generating the events
+        - The observable netity is intrusive
+            - i.e. Perswon class needs to be modified so that it can be observable
 
 - Terminology (for Boost, Qt, etc..)
     - Event/**signal**: gives indication when something changed

@@ -1,6 +1,17 @@
 # State
  
+- A pattern where the objects behaviour is determined by its state
+- An object trnasitions from state to another
+    - Something needs to _trigger_ a transition
 
+- State machine: a formalized construct which manages state and trnasitions 
+
+- Given sufficient complexity, it is beneficial to formally define possible states and events/triggers
+- Can define
+    - State entry/exit behaviors
+    - Action when a particular event causes a transition
+    - Guard conditions which enable/disable a transition
+    - Defualt action when no transitions are found for an event
 
 ## Classic State Implementation
 - Classic state is not realistic to implement
