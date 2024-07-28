@@ -4,6 +4,11 @@
 - Enables the exact behaviour of a system to be selected either at run-time (dynamic) or compile-time (static)
 - Allows to partially specify the behaviour of the system then augment it later on
 
+## Implementation
+- Define an algorithm at a high level
+- Define the interface you expect each strategy to follow 
+- Provide either dynamic or static composition of the strategy in the overall algorithm
+
 ## Motivation
 - Many algorithms can be decomposed into higher-and-lower level parts
 - The high-level (or generic) part of the algorithm can be reused for other algorithms with similar parts
