@@ -57,7 +57,7 @@ Notes and examples on programming design patterns
 - [Observer](/observer/)
 - [State](/state/)
 - [Strategy](/strategy/)
-- Template method
+- [Template method](/template-method/)
 - Visitor
 
 # Setup
