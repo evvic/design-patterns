@@ -19,6 +19,47 @@
     - Violates the single responsibility principle
         - Adding new functionality to the classes in the hierarchy is adding another responsibility
 
+#### [`intrusive.cpp`](intrusive.cpp)
+```cpp
+struct Expression
+{
+    virtual void print(ostringstream& oss) = 0;
+};
+```
+- The interface `Expression` class will have a virtual `print` method used by all inherited `Expression` classes
+
+```cpp
+struct AdditionExpression : Expression
+{
+    Expression *left, *right;
+    // ...
+
+    void print(ostringstream& oss) override {
+        oss << "(";
+        left->print(oss);
+        oss << "+";
+        right->print(oss);
+        oss << ")";
+    }
+};
+```
+- `AdditionExpression` has its `print` recursively call other print methods depending on the obejct type for it's `left` and `right` Expressions
+
+```cpp
+auto e = new AdditionExpression{
+    new DoubleExpression{1},
+    new AdditionExpression{
+        new DoubleExpression{2},
+        new DoubleExpression{3}
+    }
+};
+ostringstream oss;
+e->print(oss);
+```
+- Calling the visitor that prints the hierarchy of Expressions is simply done with the highest level `print`
+- This approach is of course very intrusive and adds another repsonsibility to all Expression-based classes
+
+
 ## Reflective Visitor
 - Called **reflective** because in other languages it is called `reflection` for object type checks
     - In C++ this is accomplished with `dynamic_cast`
@@ -105,4 +146,6 @@ printer.str();
 ```
 - The Expression is defined with other nested Expressions
 - The visitor `ExpressionPrinter` runs `.visit()` on the concrete Expression `e`
+
+## Acyclic Visitor
 
