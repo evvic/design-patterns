@@ -174,4 +174,84 @@ printer.str();
 - The visitor `ExpressionPrinter` runs `.visit()` on the concrete Expression `e`
 
 ## Acyclic Visitor
+- Based on **RTTI** (run-time type information)
+    - In C++ RTTI allows determination of the dynamic type of an object at runtime
+        - Primarily used with `typeid` operator and `dynamic_cast` operator
+            - **`typeid`**: returns a type_info object representing the type of expression
+            - **`dynamic_cast`**: attempts to cast an expression to a polymorphic type
+                - If successful, it returns the converted value, else **null**
+- Significantly slower
+- Puts no limitations on hierarchy
 
+#### [`acyclic.cpp`](acyclic.cpp)
+```cpp
+template <typename Visitable>
+struct Visitor
+{
+    virtual void visit(Visitable& obj) = 0;
+};
+```
+- Specify we can visit a `Visitable`
+
+```cpp
+struct VisitorBase // marker interface
+{
+    virtual ~VisitorBase() = default;
+};
+```
+- Add a virtual destructor so the virtual `VisitorBase` class is added to the v-tables
+
+```cpp
+struct Expression
+{
+    virtual ~Expression() = default;
+
+    virtual void accept(VisitorBase& obj)
+    {
+        using EV = Visitor<Expression>;
+        if (auto ev = dynamic_cast<EV*>(&obj))
+            ev->visit(*this);
+    }
+};
+```
+- `Expression` interface base class
+- `accept` method is going to accept a reference to `VisitorBase`
+- We want to make sure `obj` param is of type `Visitor<Expression>`
+- Verifying the `VisitorBase& obj` being passed into `Expression::accept()` knows how to accept a `Visitor<Expression>`
+    - Verifying is done so be checking if `dynamic_cast` can cast the obj into `Visitor<Expression>` type
+
+```cpp
+virtual void AdditionExpression::accept(VisitorBase& obj)
+{
+    using AEV = Visitor<AdditionExpression>;
+    if (auto ev = dynamic_cast<AEV*>(&obj))
+        ev->visit(*this);
+}
+```
+- All classes inheriting from `Expression` interface need to implement the `accept` for checking `dynamic_cast`
+
+#### Implement ExpressionPrinter
+```cpp
+struct ExpressionPrinter : VisitorBase,
+                           Visitor<Expression>,
+                           Visitor<DoubleExpression>,
+                           Visitor<AdditionExpression>
+{
+private:
+    ostringstream oss;
+```
+- `ExpressionPrinter` implements the Visitor classes
+    - Inheriting `VisitorBase` (is just a marker but) allows `ExpressionPrinter` to be included into every `accept` method all the `Expression` classes implement
+    - Inheriting `Visitor<DoubleExpression>` / `Visitor<AdditionExpression>` allows overriding the `visit` methods each `dynamic_cast` should have for these types
+
+```cpp
+void ExpressionPrinter::visit(DoubleExpression &obj) override
+{
+    oss << obj.value;
+}
+```
+- ExpressionPrinter has a visit method for all concrete Expression objects
+
+- The benefit of Acyclic Visitor is it is very non-intrusive
+    - Removing the `ExpressionPrinter` class will not break the overloaded `Visitor<Expression>` `visit` methods
+    - It easily extendable to multiple visitor classes
