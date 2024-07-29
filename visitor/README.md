@@ -64,11 +64,37 @@ e->print(oss);
 - Called **reflective** because in other languages it is called `reflection` for object type checks
     - In C++ this is accomplished with `dynamic_cast`
     - `dynamic_cast` takes time at runtime to check which
+
 ```cpp
+struct ExpressionPrinter {
+
+    ostringstream oss;
+
+    void print(Expression *e)
+    {
+        if (auto de = dynamic_cast<DoubleExpression*>(e))
+        {
+            oss << de->value;
+        } 
+        else if (auto ae = dynamic_cast<AdditionExpression*>(e))
+        {
+            oss << "(";
+            print(ae->left);
+            oss << "+";
+            print(ae->right);
+            oss << ")";
+        }
+    }
+
+    string str() const { return oss.str(); }
+};
 ```
-- Try casting it to a DoubleExpression
-    - Then format it for that object type
-- Else try casting it to a AdditionExpression
+- Single general `print` function
+    - Prints the way it is meant to depending on the object type of `Expression *e`
+- This can be checked by doing a `dynamic_cast`
+    - Try casting it to a DoubleExpression
+        - Then format it for that object type
+    - Else try casting it to a AdditionExpression
 
 - This solution does not scale well with chaining multiple if-statements
 - Still better than Intrusive Visitor for not breaking open-close and single responsibility principle
