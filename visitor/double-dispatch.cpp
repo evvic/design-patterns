@@ -146,7 +146,7 @@ void ExpressionEvaluator::visit(SubtractionExpression* se)
     result -= temp;
 }
 
-void main()
+int main()
 {
     auto e = new AdditionExpression{
         new DoubleExpression{ 1 },
@@ -161,5 +161,5 @@ void main()
     printer.visit(e);
     evaluator.visit(e);
     cout << printer.str() << " = " << evaluator.result << endl;
-    getchar();
+    return 0;
 }

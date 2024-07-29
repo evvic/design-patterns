@@ -44,7 +44,7 @@ struct AdditionExpression : Expression
     }
 };
 
-void main()
+int main()
 {
     auto e = new AdditionExpression{
         new DoubleExpression{1},
@@ -56,4 +56,6 @@ void main()
     ostringstream oss;
     e->print(oss);
     cout << oss.str() << endl;
+
+    return 0;
 }
