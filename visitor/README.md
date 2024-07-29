@@ -255,3 +255,157 @@ void ExpressionPrinter::visit(DoubleExpression &obj) override
 - The benefit of Acyclic Visitor is it is very non-intrusive
     - Removing the `ExpressionPrinter` class will not break the overloaded `Visitor<Expression>` `visit` methods
     - It easily extendable to multiple visitor classes
+
+
+## Multimethods
+- Multi dispatch without a visitor
+- Implement on 2 arguments instead of 1 argument
+- Uses CRTP
+
+#### [`multimethods.cpp`](multimethods.cpp)
+
+
+- In the following example there is `GameObject` of different objects
+    - i.e. planet, spaceship, asteroid and they all interact differently when they collide with each other
+
+
+```cpp
+struct GameObject
+{
+	virtual ~GameObject() = default;
+	virtual type_index type() const = 0;
+
+	virtual void collide(GameObject& other) { ::collide(*this, other); }
+};
+```
+- All the objects will "inherit" from `GameObject` but with a twist...
+
+```cpp
+template <typename T> struct GameObjectImpl : GameObject
+{
+	type_index type() const override
+	{   
+		return typeid(T);
+	}
+};
+```
+- `GameObjectImpl` inherits from `GameObject` and the actual objects will inherit from `GameObjectImpl`
+
+```cpp
+struct Planet : GameObjectImpl<Planet> {};
+struct Asteroid : GameObjectImpl<Asteroid> {};
+struct Spaceship : GameObjectImpl<Spaceship> {};
+```
+- Objects inherit from `GameObjectImpl` passing in themselves as the template argument
+- Determines the `type_index`
+
+```cpp
+void spaceship_planet() { cout << "spaceship lands on planet\n"; }
+void asteroid_planet() { cout << "asteroid burns up in atmosphere\n"; }
+void asteroid_spaceship() { cout << "asteroid hits and destroys spaceship\n"; }
+// ...
+```
+- The functions defined for the types of collision options
+
+#### Map function collisions to object pairs
+```cpp
+map<pair<type_index,type_index>, void(*)(void)> outcomes{
+	{{typeid(Spaceship), typeid(Planet)}, spaceship_planet},
+	{{typeid(Asteroid),typeid(Planet)}, asteroid_planet},
+	{{typeid(Asteroid),typeid(Spaceship)}, asteroid_spaceship},
+	{{typeid(Asteroid), typeid(ArmedSpaceship)}, asteroid_armed_spaceship}
+};
+```
+- The pairs of objects that are colliding are the keys
+- The function handling with that type of collision is the value
+    - `void(*)(void)` is a pointer to a function that takes no arguments and returns void
+
+```cpp
+void collide(GameObject& first, GameObject& second)
+{
+	auto it = outcomes.find({ first.type(), second.type() });
+	if (it == outcomes.end())
+	{
+		it = outcomes.find({ second.type(), first.type() });
+		if (it == outcomes.end())
+		{
+			cout << "objects pass each other harmlessly\n";
+			return;
+		}
+	}
+	it->second();
+}
+```
+- The `collide` function takes 2 `GameObject`s and runs a function in the `outcomes` map if the pair of obejcts exists in the map
+- `collide` will check the pair of objects in either order for the mapped function
+
+#### Example testing `collide`
+```cpp
+Asteroid asteroid;
+Planet planet;
+collide(planet, asteroid);
+```
+- Depends on runtime of 2 object arguments
+
+## `std::variant && std::visit`
+
+- A `variant` in C++ allows a variable to be multiple data types
+
+#### `std::variant`
+```cpp
+variant<string, int> house;
+```
+- Here the `house` variable can be either a string or an int
+
+```cpp
+struct AddressPrinter
+{
+    void operator()(const string& house_name) const {
+        cout << "A house called " << house_name << "\n";
+    }
+
+    void operator()(const int house_number) const {
+        cout << "House number " << house_number << "\n";
+    }
+};
+```
+- `AddressPrinter` is a visitor for a variant type of variable
+- Overload the function call `()` operator for every type in the variant
+
+#### `std::visit`
+```cpp
+variant<string, int> house;
+house = 221;
+
+AddressPrinter ap;
+std::visit(ap, house);
+```
+- `std::visit` takes a callable `()` and the variant 
+- A visitor that works on a `std::variant`
+
+
+#### `std::visit` with lambda
+- Instead of creating a `struct AddressPrinter` that overloads the `()` operator for all options in the variant, a lambda can be passed into `visit()`
+
+```cpp
+variant<string, int> house;
+house = "Montefiore Castle";
+
+std::visit([](auto& arg) {
+    using T = decay_t<decltype(arg)>;
+
+    if constexpr (is_same_v<T, string>) {
+        cout << "A house called " << arg.c_str() << "\n";
+    }
+    else {
+        cout << "House number " << arg << "\n";
+    }
+}, house);
+```
+- The lamnda takes an `auto` type for arg because it could be a string or visitor
+- `using T = decay_t<decltype(arg)>;` gets the template type of the `arg`
+- Then can use the template type `T` for evaluating if the arg is a string
+    - How to process the arg being a string or an integer
+
+
+
